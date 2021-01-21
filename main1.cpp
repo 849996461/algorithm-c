@@ -4,58 +4,22 @@
 #include "math.h"
 #include "vector"
 #include "list"
+#include "algorithm"
 
 using namespace std;
 
 
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
 
 class Solution {
 public:
-    vector<vector<int>> zigzagLevelOrder(TreeNode *root) {
-        vector<vector<int>> res;
-        if (!root){
-            return res;
-        }
-        list<TreeNode *> list = {root};
-        bool order = true;
-        while (!list.empty()) {
-            int size = list.size();
-            vector<int> row;
-            for (int i = 0; i < size; ++i) {
-                TreeNode node = *list.back();
-                list.pop_back();
+    int maximumProduct(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        int l = nums.size();
+        int max2 = nums[l-1] * nums[l-2] * nums[l-3];
+        int max4 = nums[l-1] * nums[1] * nums[0];
+        return max({ max2, max4});
 
-                if (order) {
-                    if (node.left) {
-                        list.push_back(node.left);
-                    }
-                    if (node.right) {
-                        list.push_back(node.right);
-                    }
-                }
-                else{
-                    if (node.right) {
-                        list.push_back(node.right);
-                    }
-                    if (node.left) {
-                        list.push_back(node.left);
-                    }
-                }
-                row.push_back(node.val);
-            }
-            order = !order;
-            res.push_back(row);
-        }
-        return res;
     }
-
 };
 
 int main() {

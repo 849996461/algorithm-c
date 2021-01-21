@@ -32,10 +32,10 @@ public:
 };
 
 int main(){
-//    Solution a = Solution();
-//    cout << a.lengthOfLongestSubstring("bbbbbcbb") ;
-//    unordered_set<int> set = {1, 2, 3, 4, 5};
-//    cout << max(1,(int)set.size());
+    Solution a = Solution();
+    cout << a.lengthOfLongestSubstring("bbbbbcbb") ;
+    unordered_set<int> set = {1, 2, 3, 4, 5};
+    cout << max(1,(int)set.size());
 
 }
 
