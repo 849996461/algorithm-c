@@ -17,6 +17,25 @@ class Solution {
 public:
     //解法二.
     string longestPalindrome(string s) {
+        string t = "#";
+        for (int i = 0; i < s.length(); ++i) {
+            t += s[i] + '#';
+        }
+        int p = 0;
+        int rEdge = 0;
+        int start = 0;
+        int end = 0;
+        for (int i = 0; i < t.length(); ++i) {
+            auto [left , right] = expand(i,i,t);
+            if (right - left > end - start) {
+                end = right , start = left;
+            }
+            if (right > rEdge) {
+                rEdge = right;
+            }
+        }
+        return t.substr(start, end - start + 1).replace()
+
 
     }
 
