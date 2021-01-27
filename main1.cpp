@@ -11,16 +11,21 @@ using namespace std;
 
 
 class Solution {
-private:
-	int a;
+
 public:
-	int b;
+    int regionsBySlashes(vector<string>& grid) {
+
+    }
 };
 
 int main() {
-	typedef char abc;
-	abc a = 'b';
-	using abcd = char;
-	abcd b = 'k';
-	cout << b ;
+//    vector<string> v = {"\\/", "/\\"};
+//    Solution solution;
+//    cout << solution.regionsBySlashes(v);
+    const char ca[] = {'a', 'b', 'c', 'd'};
+    const char *cp = ca;
+    while (*cp) {
+        cout << *cp;
+        cp++;
+    }
 }
