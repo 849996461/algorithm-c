@@ -18,8 +18,8 @@ private:
 
 
 public:
-    DjSet(int x, int y) : parent(x * y * 4),
-                           sum(x * y * 4) {
+    DjSet(int n) : parent(n+1),
+                           sum(0) {
         for (int i = 0; i < parent.size(); ++i) {
             parent[i] = i;
         }
@@ -33,9 +33,9 @@ public:
     void merge(int x, int y) {
         int xx = find(x), yy = find(y);
         if (xx == yy) {
+            sum++;
             return ;
         }else{
-            sum--;
             parent[yy] = parent[xx];
         }
 
@@ -55,35 +55,27 @@ public:
 class Solution {
 public:
     int regionsBySlashes(vector<string>& grid) {
-        int x = grid.size();
-        int y = grid[0].size();
-        auto idx = [&](int i,int j , int k) -> int { return i * y * 4 + j * 4 + k; };
+        int n = grid.size();
+        int m = n + 1;
+        int num = m * m;
+        DjSet djSet(num);
 
-        DjSet djSet(x,y);
-        for (int i = 0; i < x; ++i) {
-            for (int j = 0; j < y; ++j) {
-                int p0 = idx(i, j, 0);
-                if (grid[i][j] == ' '){
-                    djSet.merge(p0, p0+1);
-                    djSet.merge(p0+1, p0+2);
-                    djSet.merge(p0+2, p0+3);
-                }else if (grid[i][j] == '\\'){
-                    djSet.merge(p0+1, p0+2);
-                    djSet.merge(p0, p0+3);
-                }else if (grid[i][j] == '/') {
-                    djSet.merge(p0, p0+1);
-                    djSet.merge(p0+2, p0+3);
-                }
-                if (j < grid[0].size()-1) {
-                    djSet.merge(p0+2, p0+4);
-                }
-                if (i < grid.size() - 1) {
-                    djSet.merge(p0 + 3, idx(i + 1, j, 1));
+        for (int i = 0; i < num; ++i) {
+            if (i / m == 0 || i % m == 0 || i % m == n || i / m == n) {
+                djSet.merge(i, num);
+            }
+        }
+
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (grid[i][j] == '\\') {
+                    djSet.merge(i*m+j, (i+1)*m+j+1);
+                } else if (grid[i][j] == '/') {
+                    djSet.merge(i*m+j+1, (i+1)*m+j);
                 }
             }
-
-
         }
+
         return djSet.getSum();
     }
 };
