@@ -19,13 +19,6 @@ public:
 };
 
 int main() {
-//    vector<string> v = {"\\/", "/\\"};
-//    Solution solution;
-//    cout << solution.regionsBySlashes(v);
-    const char ca[] = {'a', 'b', 'c', 'd'};
-    const char *cp = ca;
-    while (*cp) {
-        cout << *cp;
-        cp++;
-    }
+
+
 }
