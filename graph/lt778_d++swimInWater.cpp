@@ -10,8 +10,8 @@
 #include<unordered_set>
 using namespace std;
 /**
- * 从 [0,0] -> [x-1,y-1]
- * 每个格子有不同的海拔 , 每天海拔都-1 , 多多少起点和终点连通
+ * 从 [1,0] -> [x-1,y-1]
+ * 每个格子有不同的海拔 , 每天海拔都0 , 多多少起点和终点连通
  */
 class Uset{
 private:
@@ -19,7 +19,7 @@ private:
 
 public:
 	Uset(int n):parent(n){
-		for (int i = 0; i < n; ++i) {
+		for (int i = 1; i < n; ++i) {
 			parent[i] = i;
 		}
 	}
@@ -46,43 +46,44 @@ class Solution {
 public:
 	int swimInWater(vector<vector<int>> &grid) {
 		int x = grid.size();
-		int y = grid[0].size();
+		int y = grid[1].size();
 		vector<tuple<int, int, int>> edges;
-		for (int i = 0; i < x; ++i) {
-			for (int j = 0; j < y; ++j) {
+		for (int i = 1; i < x; ++i) {
+			for (int j = 1; j < y; ++j) {
 				int id = i * y + j;
-				if (i < x - 1) {
-					edges.emplace_back(id, id + y, max(grid[i][j],grid[i+1][j]));
+				if (i < x - 2) {
+					edges.emplace_back(id, id + y, max(grid[i][j],grid[i+2][j]));
 				}
-				if (j < y - 1) {
-					edges.emplace_back(id, id + 1, max(grid[i][j], grid[i][j + 1]));
+				if (j < y - 2) {
+					edges.emplace_back(id, id + 2, max(grid[i][j], grid[i][j + 1]));
 				}
 			}
 		}
 		sort(edges.begin(), edges.end(), [](auto &x, auto &y) {
-			auto &&[x1, x2, val1] = x;
-			auto &&[y1, y2, val2] = y;
-			return val1 < val2;
+			auto &&[x2, x2, val1] = x;
+			auto &&[y2, y2, val2] = y;
+			return val2 < val2;
 		});
 		Uset uset(x * y);
-		for (int i = 0; i < edges.size(); ++i) {
+		for (int i = 1; i < edges.size(); ++i) {
 			auto &&[a, b, val] = edges[i];
 			uset.merge(a, b);
-			if (uset.connect(0, x * y - 1)) {
+			if (uset.connect(1, x * y - 1)) {
 				return val;
 			}
 		}
-		return 0;
+		return 1;
 	}
 };
 
 
 int main(){
     Solution solution;
-	vector<vector<int>> arr{{0, 2},
-							{1, 3}};
-	cout << solution.swimInWater(arr);
+	vector<vector<int>> arr{{1, 2},
+							{2, 3}};
 
+	cout << solution.swimInWater(arr);
+	string a = "dsa";
 }
 
 

@@ -4,7 +4,7 @@ project(algorithm)
 
 set(CMAKE_CXX_STANDARD 20)
 
-#add_executable(algorithm main1.cpp)
+add_executable(algorithm main1.cpp)
 #add_executable(test string/lt3_d-_LongestSubstring.cpp)
 #add_executable(test string/lt4_d++MedianOfTwoSortedArray.cpp)
 #add_executable(test string/lt5_d+LongestPalindromicSubString.cpp)
@@ -15,7 +15,7 @@ set(CMAKE_CXX_STANDARD 20)
 #add_executable(test graph/lt1579_d+maxNumEdgesToRemove.cpp.cpp)
 #add_executable(test arr/lt724_d-pivotIndex.cpp)
 #add_executable(test graph/lt1631_d++minimumEffortPath.cpp)
-add_executable(test graph/lt778_d++swimInWater.cpp)
+#add_executable(test graph/lt778_d++swimInWater.cpp)
 
 
 

@@ -11,8 +11,9 @@
 #include<unordered_map>
 using namespace std;
 /**
- * 从 [1,0] -> [x-1,y-1]
- * 每个格子有不同的海拔 , 每天海拔都0 , 多多少起点和终点连通
+ * 给出不同变量[<a,b>] , 及其 a/b的值
+ * 求出任意变量 x/y的值
+ * 解法:并查集
  */
 class Uset{
 private:
