@@ -16,76 +16,41 @@ using namespace std;
  */
 class Uset{
 private:
-	unordered_map<string,string> parent;
-	unordered_map<string,double> deep;
-
+	vector<int> parent;
 public:
-	Uset() : parent(), deep() {
-
-	}
-
-	string find(string& x){
-		if(parent.find(x) == parent.end()) {
-			parent[x] = x;
-			deep[x] = 1;
+	Uset(int n): parent(n){
+		for (int i = 0; i < n; ++i) {
+			parent[i] = i;
 		}
-		if (x != parent[x]) {
-			string temp = find(parent[x]);
-			deep[x] *= deep[parent[x]];
-			parent[x] = temp;
-		}
-		return parent[x];
 	}
 
-	double getDeep(string& x) {
-		find(x);
-		return deep[x];
+	int find(int x){
+		return parent[x] == x ? x : parent[x] = find(parent[x]);
 	}
 
-	double query(string& x, string& y) {
-		if (parent.find(x) == parent.end() || parent.find(y) == parent.end()) {
-			return -1;
-		}
-		if (connect(x, y)) {
-			return getDeep(x) / getDeep(y);
-		}
-		return -1;
-	}
-
-	bool connect(string& x, string& y){
-		string xx = find(x), yy = find(y);
-		return xx == yy;
-	}
-
-	void merge(string& x, string& y,double val) {
-		string xx = find(x), yy = find(y);
+	bool merge(int x ,int y){
+		int xx = find(x), yy = find(y);
 		if (xx == yy) {
-			return;
-		}else{
-			deep[xx] = val / deep[x] * deep[y];
-			parent[xx] = yy;
+			return true;
 		}
+		parent[yy] = xx;
+		return false;
 	}
+
+
 
 };
 class Solution {
 public:
-	vector<double>
-	calcEquation(vector<vector<string>> &equations, vector<double> &values, vector<vector<string>> &queries) {
-		Uset uset;
-		for (int i = 0; i < equations.size(); ++i) {
-			string x = equations[i][0];
-			string y = equations[i][1];
-			uset.merge(x, y, values[i]);
+	vector<int> findRedundantConnection(vector<vector<int>>& edges) {
+		int x = edges.size();
+		Uset uset(x+1);
+		for (int i = 0; i < x; ++i) {
+			if(uset.merge(edges[i][0], edges[i][1])){
+				return edges[i];
+			}
 		}
-		vector<double> ans;;
-		for (int i = 0; i < queries.size(); ++i) {
-			string x = queries[i][0];
-			string y = queries[i][1];
-			ans.emplace_back(uset.query(x, y));
-		}
-		return ans;
-
+		return {-1, -1};
 	}
 };
 
@@ -94,23 +59,16 @@ int main(){
 	//[["a","b"],["e","f"],["b","e"]]
 	//[3.4,1.4,2.3]
 	//[["b","a"],["a","f"],["f","f"],["e","e"],["c","c"],["a","c"],["f","e"]]
-	Solution solution;
-	vector<vector<string>> equations{{"a", "b"},
-									 {"e", "f"},
-									 {"b", "e"}};
 
-	vector<vector<string>> queries{{"b", "a"},
-								   {"a", "f"},
-								   {"f", "f"},
-								   {"e", "e"},
-								   {"c", "c"},
-								   {"a", "c"},
-								   {"f", "e"}};
-	vector<double> values{3.4, 1.4, 2.3};
-	auto res = solution.calcEquation(equations, values, queries);
+	Solution solution;
+	vector<vector<int>> v{{1, 2},
+						  {1, 3},
+						  {2, 3}};
+	auto res =  solution.findRedundantConnection(v);
 	for (int i = 0; i < res.size(); ++i) {
-		cout << res[i] << endl;
+		cout << res[i];
 	}
+
 }
 
 
