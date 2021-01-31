@@ -10,8 +10,9 @@
 #include<unordered_set>
 using namespace std;
 /**
- * 从 [1,0] -> [x-1,y-1]
- * 每个格子有不同的海拔 , 每天海拔都0 , 多多少起点和终点连通
+ * 给定同长只有字符顺序不同的一系列字符串 , 有两个字符同则相似
+ * 返回相似组数量
+ *
  */
 class Uset{
 private:
