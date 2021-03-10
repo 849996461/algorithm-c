@@ -12,8 +12,7 @@
 #include<unordered_map>
 using namespace std;
 /**
- * 从 [1,0] -> [x-1,y-1]
- * 每个格子有不同的海拔 , 每天海拔都0 , 多多少起点和终点连通
+ * +-法计算器
  */
 class Solution {
 public:
